@@ -204,22 +204,22 @@ Metrics will be published to the defined path (i.e., http://localhost:3000/metri
         "sum": 0.0,
         "value": 0
       },
-      "raindrops.calling": {
+      "unicorns.calling": {
         "type": "gauge",
         "value": 0
       },
-      "raindrops.writing": {
+      "unicorns.writing": {
         "type": "gauge",
         "value": 0
       },
       // This will only work on Linux platforms as specified by the Raindrops::Middleware
       // Listeners on TCP sockets
-      "raindrops.tcp.active": {
+      "unicorns.tcp.active": {
         "type": "gauge",
         "value": 0
       },
       // Listeners on Unix sockets
-      "raindrops.unix.active": {
+      "unicorns.unix.active": {
         "type": "gauge",
         "value": 0
       }

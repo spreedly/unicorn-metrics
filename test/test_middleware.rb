@@ -37,11 +37,11 @@ describe UnicornMetrics::Middleware do
         @hash.fetch("test_counter").must_equal @counter.as_json.fetch("test_counter")
       end
 
-      it "includes raindrops middleware metrics" do
-        @hash.must_include "raindrops.calling"
-        @hash.must_include "raindrops.writing"
-        @hash.must_include "raindrops.tcp.active"
-        @hash.must_include "raindrops.tcp.queued"
+      it "includes unicorns middleware metrics" do
+        @hash.must_include "unicorns.calling"
+        @hash.must_include "unicorns.writing"
+        @hash.must_include "unicorns.tcp.active"
+        @hash.must_include "unicorns.tcp.queued"
       end
     end
 

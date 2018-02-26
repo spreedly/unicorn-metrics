@@ -53,11 +53,11 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
   # * writing - the number of clients being written to on your machine
   def raindrops
     {
-      "raindrops.calling" => {
+      "unicorns.calling" => {
         "type" => "gauge",
         "value" => @stats.calling
       },
-      "raindrops.writing" => {
+      "unicorns.writing" => {
         "type" => "gauge",
         "value" => @stats.writing
       }
@@ -76,24 +76,24 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
 
   def raindrops_tcp_listener_stats
     hash = {
-      "raindrops.tcp.active" => { type: :gauge, value: 0 },
-      "raindrops.tcp.queued" => { type: :gauge, value: 0 }
+      "unicorns.tcp.active" => { type: :gauge, value: 0 },
+      "unicorns.tcp.queued" => { type: :gauge, value: 0 }
     }
     Raindrops::Linux.tcp_listener_stats(@tcp).each do |_, stats|
-      hash["raindrops.tcp.active"][:value] += stats.active.to_i
-      hash["raindrops.tcp.queued"][:value] += stats.queued.to_i
+      hash["unicorns.tcp.active"][:value] += stats.active.to_i
+      hash["unicorns.tcp.queued"][:value] += stats.queued.to_i
     end
     hash
   end
 
   def raindrops_unix_listener_stats
     hash = {
-      "raindrops.unix.active" => { type: :gauge, value: 0 },
-      "raindrops.unix.queued" => { type: :gauge, value: 0 }
+      "unicorns.unix.active" => { type: :gauge, value: 0 },
+      "unicorns.unix.queued" => { type: :gauge, value: 0 }
     }
     Raindrops::Linux.unix_listener_stats(@unix).each do |_, stats|
-      hash["raindrops.unix.active"][:value] += stats.active.to_i
-      hash["raindrops.unix.queued"][:value] += stats.queued.to_i
+      hash["unicorns.unix.active"][:value] += stats.active.to_i
+      hash["unicorns.unix.queued"][:value] += stats.queued.to_i
     end
     hash
   end
@@ -103,12 +103,12 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
   def listener_stats(listeners={})
     if defined?(Raindrops::Linux.tcp_listener_stats)
       Raindrops::Linux.tcp_listener_stats(@tcp).each do |addr,stats|
-        listeners["raindrops.#{addr}.active"] = "#{stats.active}"
-        listeners["raindrops.#{addr}.queued"] = "#{stats.queued}"
+        listeners["unicorns.#{addr}.active"] = "#{stats.active}"
+        listeners["unicorns.#{addr}.queued"] = "#{stats.queued}"
       end if @tcp
       Raindrops::Linux.unix_listener_stats(@unix).each do |addr,stats|
-        listeners["raindrops.#{addr}.active"] = "#{stats.active}"
-        listeners["raindrops.#{addr}.queued"] = "#{stats.queued}"
+        listeners["unicorns.#{addr}.active"] = "#{stats.active}"
+        listeners["unicorns.#{addr}.queued"] = "#{stats.queued}"
       end if @unix
     end
     listeners
