@@ -11,6 +11,7 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
   def initialize(app, opts = {})
     @registry     = UnicornMetrics::Registry
     @metrics_path = opts[:metrics] || "/metrics"
+    @capacity = opts[:capacity] || 0
     super
   end
 
@@ -89,7 +90,8 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
   def raindrops_unix_listener_stats
     hash = {
       "unicorns.unix.active" => { type: :gauge, value: 0 },
-      "unicorns.unix.queued" => { type: :gauge, value: 0 }
+      "unicorns.unix.queued" => { type: :gauge, value: 0 },
+      "unicorn.unix.capacity" => {type: :gauge, value: @capacity }
     }
     Raindrops::Linux.unix_listener_stats(@unix).each do |_, stats|
       hash["unicorns.unix.active"][:value] += stats.active.to_i

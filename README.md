@@ -222,7 +222,11 @@ Metrics will be published to the defined path (i.e., http://localhost:3000/metri
       "unicorns.unix.active": {
         "type": "gauge",
         "value": 0
-      }
+      },
+      "unicorn.unix.capacity": {
+        "type": "gauge",
+        "value": 0,
+      },
     }
 ```
 
