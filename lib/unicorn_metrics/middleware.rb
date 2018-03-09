@@ -91,7 +91,7 @@ class UnicornMetrics::Middleware < Raindrops::Middleware
     hash = {
       "unicorns.unix.active" => { type: :gauge, value: 0 },
       "unicorns.unix.queued" => { type: :gauge, value: 0 },
-      "unicorn.unix.capacity" => {type: :gauge, value: @capacity }
+      "unicorns.unix.capacity" => {type: :gauge, value: @capacity }
     }
     Raindrops::Linux.unix_listener_stats(@unix).each do |_, stats|
       hash["unicorns.unix.active"][:value] += stats.active.to_i
